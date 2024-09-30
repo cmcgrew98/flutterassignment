@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../components/login_text.dart';
 import '../components/login_textfield.dart';
+import '../components/flutter_button.dart';
+import 'Home.dart';
+import 'Register.dart';
 class Login extends StatelessWidget {
   Login({super.key});
 final userController = TextEditingController();
@@ -29,12 +33,36 @@ const SizedBox(height: 10),
             hintText: 'Enter your password',
               obscureText: true,
             ),
+        const SizedBox(height:10),
+
         //forgot password?
-        //sign in button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal:25.0),
+           child: Row(mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+            Text('Forgot password?', style: TextStyle(color:Colors.grey[600]),
+            ),
+        ],
+            ),
+            ),
+            const SizedBox(height:25),
+              //sign in button
+            FlutterButton(
+              onTap: (){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context)=> const Home()));
+              }
+            ),
 
-        //or continue with Google
+        //Don't have an account? Register here
+            const SizedBox(height:10),
+      LoginText(
+        onTap: (){
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context)=> const Register()));
+        },
+      )
 
-        //register here
+
+
 
 
       ],)
