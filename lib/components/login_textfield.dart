@@ -30,7 +30,7 @@ class LoginTextfield extends StatelessWidget {
            fillColor: Colors.white12,
            filled: true,
            hintText: hintText,
-           hintStyle: TextStyle(color: Colors.grey),
+           hintStyle: const TextStyle(color: Colors.grey),
          ),
        )    //password textfield
    );
