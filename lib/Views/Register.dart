@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/flutter_button.dart';
 import '../components/login_textfield.dart';
+import '../components/sign_up.dart';
 import 'Home.dart';
 
 class Register extends StatelessWidget {
@@ -48,7 +49,7 @@ class Register extends StatelessWidget {
             obscureText: true,
           ),
           const SizedBox(height:10),
-          FlutterButton(
+          SignUp(
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => const Home()));
