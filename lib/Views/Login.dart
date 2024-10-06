@@ -51,7 +51,7 @@ class Login extends StatelessWidget {
                   FlutterButton(
                       onTap: () {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (BuildContext context) => const Home()));
+                            builder: (BuildContext context) => Home()));
                       }
                   ),
 
