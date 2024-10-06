@@ -52,7 +52,7 @@ class Register extends StatelessWidget {
           SignUp(
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => const Home()));
+                    builder: (BuildContext context) => Home()));
               }
           ),
 
