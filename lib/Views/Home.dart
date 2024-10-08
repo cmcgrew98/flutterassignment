@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'UserHome.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -7,16 +8,18 @@ class Home extends StatefulWidget {
 
 }
 class _HomeState extends State<Home> {
-  int indexSelected = 2;
+  int indexSelected = 0;
    void navigateBar(int index){
    setState((){
 indexSelected = index;
    });
    }
    final List<Widget> _children = [
-     Center(child:Text('Home')),
+   UserHome(),
      Center(child:Text('Search')),
      Center(child:Text('Profile')),
+     Center(child:Text('Chat')),
+     Center(child:Text('Create Post')),
    ];
   @override
   Widget build(BuildContext context) {
