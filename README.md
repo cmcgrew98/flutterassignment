@@ -1,18 +1,39 @@
 # flutterassignment
 
-A new Flutter project.
+Creating a mobile application for image sharing as an introduction project for CS 4900. 
 
-## Getting Started
+## Authors
+Ben Crane, Evan Handy, Hunter Hamrick, Clara McGrew, Estlin Mendez, Kaden Kramer, & Renee Rickert
 
-This project is a starting point for a Flutter application.
+## Requirements
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-testing some things down here
+### 1. User Registration and Login
+- Ability to create a new account using email, phone number, or social media accounts (e.g., Google, Facebook).
+- Password recovery and reset options.
+### 2. User Profile Management
+- Create, edit, and manage personal profiles (profile picture, bio, username, etc.).
+### 3. Photo Uploading and Management
+- Upload photos directly from the device’s gallery or camera.
+- Ability to apply filters, crop, and edit photos before sharing.
+### 4. Photo Viewing and Interaction
+- View shared photos in a feed, grid, or carousel format.
+- Like, comment
+- Ability to tag other users in photos (optional).
+### 5. Social Features
+- Follow/unfollow other users.
+- Activity feed to see updates from followed users.
+- Notifications for likes, comments, new followers, and other interactions.
+- Direct messaging or chat feature for private communication.
+### 6. Search and Discovery
+- Search for users.
+### 8. Performance and Usability
+- Responsive and intuitive user interface optimized for mobile devices.
+- Fast loading times, even with large photo files.
+- Minimal battery and data usage.
+### 9. Content Moderation (Optional)
+- Automated and manual review processes for inappropriate content.
+- Flagging system for users to report inappropriate photos or behavior.
+- Community guidelines enforcement to ensure a safe and respectful environment.
+### 11. Integration and Compatibility
+- Support for various photo formats (JPEG, PNG, HEIC, etc.).
+- Compatibility with different operating systems (iOS, Android).
