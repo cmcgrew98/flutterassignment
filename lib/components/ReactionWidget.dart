@@ -6,7 +6,7 @@ class ReactionWidget extends StatefulWidget {
 }
 
 class _ReactionWidgetState extends State<ReactionWidget> {
-  String selectedReaction = ''; // Default reaction
+  String selectedReaction = 'No reaction'; // Default reaction
 
   @override
   Widget build(BuildContext context) {
