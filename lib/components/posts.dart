@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'ReactionWidget.dart';
+
 class Posts extends StatelessWidget {
   final String user;
   const Posts({required this.user, Key? key}) : super(key: key);
@@ -37,7 +39,7 @@ class Posts extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Icon(Icons.favorite),
+            ReactionWidget(),
             const SizedBox(width: 8), // Small space between icons
             const Icon(Icons.chat_bubble_outline),
             const SizedBox(width: 8), // Small space between icons

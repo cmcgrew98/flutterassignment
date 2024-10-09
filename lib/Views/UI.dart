@@ -17,6 +17,7 @@ indexSelected = index;
    final List<Widget> _children = [
    UserHome(),
      Center(child:Text('Search')),
+     Center(child:Text('profile')),
      Center(child:Text('Chat')),
      Center(child:Text('Create Post')),
    ];
