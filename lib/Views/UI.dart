@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'UserHome.dart';
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class UI extends StatefulWidget {
+  const UI({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 
 }
-class _HomeState extends State<Home> {
+class _HomeState extends State<UI> {
   int indexSelected = 0;
    void navigateBar(int index){
    setState((){
@@ -17,7 +17,6 @@ indexSelected = index;
    final List<Widget> _children = [
    UserHome(),
      Center(child:Text('Search')),
-     Center(child:Text('Profile')),
      Center(child:Text('Chat')),
      Center(child:Text('Create Post')),
    ];
