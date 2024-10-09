@@ -6,7 +6,7 @@ class ReactionWidget extends StatefulWidget {
 }
 
 class _ReactionWidgetState extends State<ReactionWidget> {
-  String selectedReaction = 'Like'; // Default reaction
+  String selectedReaction = ''; // Default reaction
 
   @override
   Widget build(BuildContext context) {
@@ -47,17 +47,45 @@ class _ReactionWidgetState extends State<ReactionWidget> {
           ],
           child: Row(
             children: [
-              Icon(
-                Icons.favorite,
-                color: selectedReaction == 'Like' ? Colors.red : Colors.grey,
+              Text(
+                getReactionIcon(selectedReaction),
+                style: TextStyle(
+                  color: selectedReaction == 'Like' ? Colors.red : Colors.grey,
+                  fontSize: 24, // Adjust the size as needed
+                ),
               ),
-              const SizedBox(width: 8),
-              Text(selectedReaction),
+              const SizedBox(width: 8), // Space between emoji and text
+              Text(
+                selectedReaction,
+                style: TextStyle(
+                  fontSize: 20, // Adjust text size as needed
+                  color: Colors.black, // Text color
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(width: 8), // Small space between icons
       ],
     );
+  }
+  String getReactionIcon(String reaction) {
+    switch (reaction) {
+    case 'Wow':
+    return '😲'; // Wow emoji
+    case 'Love':
+    return '❤️'; // Love emoji
+    case 'Like':
+    return '👍'; // Like emoji
+    case 'Sad':
+    return '😢'; // Sad emoji
+    case 'Angry':
+    return '😡'; // Angry emoji
+    case 'Haha':
+    return '😆'; // Haha emoji
+    default:
+    return '🤷'; //No reaction emoji
+
+    }
   }
 }
