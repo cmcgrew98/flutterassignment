@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutterassignment/Views/profile.dart';
 import 'UserHome.dart';
+import 'UserProfile.dart';
 class UI extends StatefulWidget {
   const UI({Key? key}) : super(key: key);
 
@@ -17,7 +19,7 @@ indexSelected = index;
    final List<Widget> _children = [
    UserHome(),
      Center(child:Text('Search')),
-     Center(child:Text('profile')),
+    UserProfile(),
      Center(child:Text('Chat')),
      Center(child:Text('Create Post')),
    ];
