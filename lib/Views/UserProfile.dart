@@ -20,18 +20,18 @@ class _profilePageState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-       centerTitle: true,
+   //   appBar: AppBar(
+  //     centerTitle: true,
         //Firebase Profile Edit
-        title: Text("$_username's Profile",
-          textAlign: TextAlign.center,
-          style: TextStyle(color:Colors.white)
-        ),
+    //    title: Text("$_username's Profile",
+     //     textAlign: TextAlign.center,
+     //     style: TextStyle(color:Colors.white)
+    //    ),
 
-        backgroundColor: Colors.lightBlue,
+    //    backgroundColor: Colors.lightBlue,
 
 
-      ),
+    //  ),
       body: ListView(
         children: [
           Row(
