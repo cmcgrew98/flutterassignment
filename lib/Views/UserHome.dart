@@ -12,16 +12,6 @@ class UserHome extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            height: 100,
-            child: ListView.builder(
-              itemCount: people.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Stories(user: people[index]);
-              },
-            ),
-          ),
           const SizedBox(height: 20),
           Expanded(
             child: ListView.builder(
