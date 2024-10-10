@@ -4,7 +4,7 @@ import 'package:flutterassignment/components/pick_image_button.dart';
 import 'package:flutterassignment/components/post_textfield.dart';
 import '../components/post_button.dart';
 import 'package:image_picker/image_picker.dart';
-import 'Home.dart';
+import 'UI.dart';
 
 class CreatePost extends StatefulWidget {
   CreatePost({super.key});
@@ -68,7 +68,7 @@ class _CreatePostState extends State<CreatePost> {
                 });
 
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (BuildContext context) => Home()));
+                    MaterialPageRoute(builder: (BuildContext context) => UI()));
 
                 print('Post Text: $postText');
               }),
