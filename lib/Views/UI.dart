@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterassignment/Views/profile.dart';
+import 'CreatePost.dart';
 import 'UserHome.dart';
 import 'UserProfile.dart';
 class UI extends StatefulWidget {
@@ -21,7 +22,7 @@ indexSelected = index;
      Center(child:Text('Search')),
     UserProfile(),
      Center(child:Text('Chat')),
-     Center(child:Text('Create Post')),
+     CreatePost(),
    ];
   @override
   Widget build(BuildContext context) {
