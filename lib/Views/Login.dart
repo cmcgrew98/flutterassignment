@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/login_text.dart';
 import '../components/login_textfield.dart';
 import '../components/flutter_button.dart';
-import 'Home.dart';
+import 'UI.dart';
 import 'Register.dart';
 class Login extends StatelessWidget {
   Login({super.key});
@@ -50,8 +50,13 @@ class Login extends StatelessWidget {
                   //sign in button
                   FlutterButton(
                       onTap: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (BuildContext context) => const Home()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UI(),
+                          ),
+                        );
+
                       }
                   ),
 
@@ -59,8 +64,13 @@ class Login extends StatelessWidget {
                   const SizedBox(height: 10),
                   LoginText(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => Register()));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => Register(),
+                        ),
+                      );
+
                     },
                   )
 

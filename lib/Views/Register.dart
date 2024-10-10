@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/flutter_button.dart';
 import '../components/login_textfield.dart';
 import '../components/sign_up.dart';
-import 'Home.dart';
+import 'UI.dart';
 
 class Register extends StatelessWidget {
   Register({super.key});
@@ -13,6 +13,18 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.lightBlue,
+        title: const Row(
+          children: [
+            Text(
+              'Social Media',
+              style: TextStyle(color: Colors.white),
+            ),
+            Icon(Icons.favorite),
+          ],
+        ),
+      ),
         body: SafeArea(
         child: Center(
         child: Column(children:  [
@@ -51,8 +63,13 @@ class Register extends StatelessWidget {
           const SizedBox(height:10),
           SignUp(
               onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => const Home()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UI(),
+                  ),
+                );
+
               }
           ),
 
