@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterassignment/components/pick_image_button.dart';
 import 'package:flutterassignment/components/post_textfield.dart';
 import '../components/post_button.dart';
-import 'package:image_picker/image_picker.dart';
 import 'UI.dart';
 
 class CreatePost extends StatefulWidget {
@@ -92,14 +91,12 @@ class _CreatePostState extends State<CreatePost> {
                   title: const Text('Camera'),
                   onTap: () async {
                     Navigator.of(context).pop(); // Close the bottom sheet
-                    await pickImage(ImageSource.camera); // Pick from camera
                   }),
               ListTile(
                   leading: const Icon(Icons.photo_library),
                   title: const Text('Gallery'),
                   onTap: () async {
                     Navigator.of(context).pop(); // Close the bottom sheet
-                    await pickImage(ImageSource.gallery); // Pick from gallery
                   }),
             ],
           ),
@@ -108,14 +105,5 @@ class _CreatePostState extends State<CreatePost> {
     );
   }
 
-  // Method to pick image from the selected source (camera or gallery)
-  pickImage(ImageSource source) async {
-    final returnedImage = await ImagePicker().pickImage(source: source);
-    if (returnedImage != null) {
-      setState(() {
-        _selectedImage = File(returnedImage.path);
-      });
-    }
-  }
 }
 

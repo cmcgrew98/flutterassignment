@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 class FlutterButton extends StatelessWidget{
   final Function()? onTap;
-  const FlutterButton({super.key,
-  required this.onTap
+  final String text;
+  const FlutterButton({
+    super.key,
+    required this.text,
+    required this.onTap,
   });
 
   @override
@@ -12,14 +15,14 @@ class FlutterButton extends StatelessWidget{
     return GestureDetector(
       onTap: onTap,
       child: Container(
-      padding: const EdgeInsets.all(25),
-      margin: const EdgeInsets.symmetric(horizontal: 25),
-      decoration: BoxDecoration(
+        padding: const EdgeInsets.all(25),
+        margin: const EdgeInsets.symmetric(horizontal: 25),
+        decoration: BoxDecoration(
           color: Colors.lightBlue,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: const Center(
-        child: Text("Sign In",
+          borderRadius: BorderRadius.circular(8),
+        ),
+      child: Center(
+        child: Text(text,
           style: TextStyle(
               color: Colors.white,
             fontWeight: FontWeight.bold,
