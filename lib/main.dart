@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterassignment/auth/login_or_register.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'auth/auth.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Social Media Platform',
       debugShowCheckedModeBanner: false,
-      home: const LoginOrRegister(),
+      home: const AuthPage(),
     );
   }
 }
