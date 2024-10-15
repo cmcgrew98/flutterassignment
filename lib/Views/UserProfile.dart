@@ -13,6 +13,7 @@ class UserProfile extends StatelessWidget {
         .doc(currentUser!.email)
         .get();
   }
+
   void logout() {
     FirebaseAuth.instance.signOut();
   }
@@ -21,42 +22,43 @@ class UserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("home"),
+        title: const Text("Home"),
         backgroundColor: Colors.deepPurple,
         actions: [
           IconButton(
             onPressed: logout,
-            icon: Icon(Icons.logout),
-          )
+            icon: const Icon(Icons.logout),
+          ),
         ],
       ),
       body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
         future: getUserDetails(),
         builder: (context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }
-          else if (snapshot.hasError) {
-            return Text("Error ${snapshot.error}");
-          }
-          else if (snapshot.hasData) {
-            Map<String, dynamic>? user = snapshot.data!.data();
+          } else if (snapshot.hasError) {
+            return Text("Error: ${snapshot.error}");
+          } else if (snapshot.hasData) {
+            // Safely retrieve the data map
+            final Map<String, dynamic>? user = snapshot.data?.data();
+
+            if (user == null) {
+              return const Text("No user data found");
+            }
+
             return Column(
-                children: [
-                  Text(user!['email']),
-                  Text(user!['username']),
-                ]
+              children: [
+                Text(user['email'] ?? 'No email available'),  // Check for null
+                Text(user['username'] ?? 'No username available'),  // Check for null
+              ],
             );
+          } else {
+            return const Text("No data");
           }
-          else {
-            return Text("No data");
-          }
-
         },
-      )
-
+      ),
     );
   }
 }
