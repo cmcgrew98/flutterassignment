@@ -58,7 +58,7 @@ class _RegisterPageState extends State<Register> {
   Future<void> createUserDocument(UserCredential? userCredential) async {
     if(userCredential != null && userCredential.user != null) {
       await FirebaseFirestore.instance
-        .collection("Users")
+        .collection("users")
         .doc(userCredential.user!.email)
           .set({
             'email': userCredential.user!.email,
