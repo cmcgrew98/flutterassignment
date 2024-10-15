@@ -9,7 +9,7 @@ class UserProfile extends StatelessWidget {
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserDetails() async {
     return await FirebaseFirestore.instance
-        .collection("Users")
+        .collection("users")
         .doc(currentUser!.email)
         .get();
   }
