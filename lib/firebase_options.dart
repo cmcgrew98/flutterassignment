@@ -60,4 +60,5 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://flutterproject-5cb92-default-rtdb.firebaseio.com',
     storageBucket: 'flutterproject-5cb92.appspot.com',
   );
+
 }
