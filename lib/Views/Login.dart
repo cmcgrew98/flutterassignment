@@ -82,7 +82,6 @@ class _LoginState extends State<Login> {
               text: "Sign in",
             ),
 
-            //Don't have an account? Register here
             const SizedBox(height: 10),
 
             Row(

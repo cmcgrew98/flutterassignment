@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterassignment/Views/profile.dart';
 
+import 'EditProfile.dart';
 import 'UI.dart';
 import 'UserHome.dart';
 
@@ -41,6 +41,15 @@ class UserProfile extends StatelessWidget {
               children: [
                 Text(user['email'] ?? 'No email available'),
                 Text(user['username'] ?? 'No username available'),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditProfile()),
+                    );
+                  },
+                  child: const Text('Edit Profile')
+                )
               ],
             );
           }

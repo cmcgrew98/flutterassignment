@@ -6,12 +6,12 @@ import 'UserHome.dart';
 import 'UserProfile.dart';
 
 class UI extends StatefulWidget {
-  const UI({Key? key}) : super(key: key);
+  const UI({super.key});
 
   @override
-  _HomeState createState() => _HomeState();
-
+  State<UI> createState() => _HomeState();
 }
+
 class _HomeState extends State<UI> {
   int indexSelected = 0;
    void navigateBar(int index){
@@ -26,36 +26,36 @@ class _HomeState extends State<UI> {
      Chat(),
      CreatePost(),
    ];
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
-        title:Row(
+        title: const Row(
           children: [
             Text(
-                'Social Media',
-            style: TextStyle(color: Colors.white),
+              'Social Media',
+              style: TextStyle(color: Colors.white),
             ),
             Icon(Icons.favorite),
           ],
         ),
       ),
+
       body: _children[indexSelected],
       bottomNavigationBar: BottomNavigationBar(
         onTap: navigateBar,
         currentIndex: indexSelected,
         type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "home"),
-          BottomNavigationBarItem(icon: Icon(Icons.search),label: "search"),
-          BottomNavigationBarItem(icon: Icon(Icons.person),label: "profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.search),label: "Search"),
+          BottomNavigationBarItem(icon: Icon(Icons.person),label: "Profile"),
           BottomNavigationBarItem(icon: Icon(Icons.chat),label: "Chat"),
           BottomNavigationBarItem(icon: Icon(Icons.add),label: "Create Post"),
         ],
       ),
     );
   }
-
 }
