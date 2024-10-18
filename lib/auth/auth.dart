@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterassignment/auth/login_or_register.dart';
 
+import '../Views/UI.dart';
 import '../Views/UserProfile.dart';
 
 class AuthPage extends StatelessWidget {
@@ -14,7 +15,7 @@ class AuthPage extends StatelessWidget {
          stream: FirebaseAuth.instance.authStateChanges(),
          builder: (context, snapshot) {
            if (snapshot.hasData) {
-             return UserProfile();
+             return UI();
            }
 
            else {

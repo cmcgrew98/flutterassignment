@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterassignment/Views/profile.dart';
+
+import 'UI.dart';
+import 'UserHome.dart';
 
 class UserProfile extends StatelessWidget {
   UserProfile({super.key});
@@ -21,27 +25,12 @@ class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-        backgroundColor: Colors.deepPurple,
-        actions: [
-          IconButton(
-            onPressed: logout,
-            icon: const Icon(Icons.logout),
-          ),
-        ],
-      ),
       body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
         future: getUserDetails(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
+          if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");
           } else if (snapshot.hasData) {
-            // Safely retrieve the data map
             final Map<String, dynamic>? user = snapshot.data?.data();
 
             if (user == null) {
@@ -50,11 +39,12 @@ class UserProfile extends StatelessWidget {
 
             return Column(
               children: [
-                Text(user['email'] ?? 'No email available'),  // Check for null
-                Text(user['username'] ?? 'No username available'),  // Check for null
+                Text(user['email'] ?? 'No email available'),
+                Text(user['username'] ?? 'No username available'),
               ],
             );
-          } else {
+          }
+          else {
             return const Text("No data");
           }
         },
