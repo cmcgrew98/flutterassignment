@@ -32,17 +32,7 @@ class _LoginState extends State<Login> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
 
-      if (context.mounted)
-      {
-        Navigator.pop(context);
-        // Navigate to the UI page
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const UI(),
-          ),
-        );
-      }
+      if (context.mounted) Navigator.pop(context);
     }
     on FirebaseAuthException catch (e) {
       Navigator.pop(context);
