@@ -1,10 +1,23 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import '../helper/helper_functions.dart';
 import 'ReactionWidget.dart';
 
 class Posts extends StatelessWidget {
-  final String user;
-  const Posts({required this.user, Key? key}) : super(key: key);
+  final List<String> avatarUrls; // List of avatar URLs
+  final String user;              // User's name
+  final String postContent;       // Content of the post
+  final List<String> photoUrls;   // List of photo URLs for the post
+
+  const Posts({
+    required this.avatarUrls,
+    required this.user,
+    required this.postContent,
+    required this.photoUrls,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +26,16 @@ class Posts extends StatelessWidget {
       children: [
         Row(
           children: [
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey[400],
-              ),
-            ),
-            const SizedBox(width: 10),
+            // Display avatars
+            ...avatarUrls.map((avatarUrl) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0), // Adjust horizontal padding as needed
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(avatarUrl), // Display avatar image from URL
+                ),
+              );
+            }).toList(),
+            const SizedBox(width: 10), // Space between avatars and username
             Text(
               user,
               style: const TextStyle(
@@ -31,9 +45,14 @@ class Posts extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 10),
-        Container(
-          height: 300,
-          color: Colors.grey,
+        // Display each photo for the post
+        Column(
+          children: photoUrls.map((photoUrl) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Image.network(photoUrl), // Display image from Firebase Storage
+            );
+          }).toList(),
         ),
         const SizedBox(height: 10),
         Row(
@@ -54,15 +73,15 @@ class Posts extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: '$user ', // Fixed missing space
+                  text: '$user ', // User's name with a space
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
-                const TextSpan(
-                  text: 'This is a post',
-                  style: TextStyle(
+                TextSpan(
+                  text: postContent, // Display post content
+                  style: const TextStyle(
                     color: Colors.black,
                   ),
                 ),

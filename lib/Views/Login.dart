@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterassignment/helper/helper_functions.dart';
 import '../components/login_textfield.dart';
 import '../components/flutter_button.dart';
+import 'UI.dart';
 
 class Login extends StatefulWidget {
   final void Function()? onTap;
@@ -31,7 +32,17 @@ class _LoginState extends State<Login> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
 
-      if (context.mounted) Navigator.pop(context);
+      if (context.mounted)
+      {
+        Navigator.pop(context);
+        // Navigate to the UI page
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const UI(),
+          ),
+        );
+      }
     }
     on FirebaseAuthException catch (e) {
       Navigator.pop(context);
