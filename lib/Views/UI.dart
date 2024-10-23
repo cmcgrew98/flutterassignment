@@ -39,6 +39,13 @@ indexSelected = index;
             Icon(Icons.favorite),
           ],
         ),
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.notifications),
+        //     onPressed: () {
+        //     },
+        //   ),
+        // ],
       ),
       body: _children[indexSelected],
       bottomNavigationBar: BottomNavigationBar(
