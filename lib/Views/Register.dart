@@ -60,7 +60,8 @@ class _RegisterPageState extends State<Register> {
             'email': userCredential.user!.email,
             'username': userController.text,
             'bio': "default bio",
-            'avatar_img_link': "gs://flutterproject-5cb92.appspot.com/user_avatars/blank_profile.jpg"
+            'avatar_img_link': "gs://flutterproject-5cb92.appspot.com/user_avatars/blank_profile.jpg",
+            'uid': userCredential.user!.uid
         });
     }
   }
