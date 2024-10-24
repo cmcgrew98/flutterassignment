@@ -15,7 +15,6 @@ Also used https://stackoverflow.com/questions/50877398/flutter-load-image-from-f
 class UserHome extends StatefulWidget {
   UserHome({Key? key}) : super(key: key);
 
-  // final List people = ['John', 'Jane', 'Jack', 'Jill', 'James', 'Jenny', 'Jasper', 'Jade', 'Jared', 'Jocelyn'];
   @override
   _UserHomeState createState() => _UserHomeState();
 }
