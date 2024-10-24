@@ -61,7 +61,8 @@ class _RegisterPageState extends State<Register> {
             'username': userController.text,
             'bio': "default bio",
             'avatar_img_link': "gs://flutterproject-5cb92.appspot.com/user_avatars/blank_profile.jpg",
-            'uid': userCredential.user!.uid
+            'uid': userCredential.user!.uid,
+            'date': FieldValue.serverTimestamp(),
         });
     }
   }
