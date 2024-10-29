@@ -3,6 +3,7 @@ import 'package:flutterassignment/Views/profile.dart';
 import 'CreatePost.dart';
 import 'UserHome.dart';
 import 'UserProfile.dart';
+import 'ChatSelect.dart';
 class UI extends StatefulWidget {
   const UI({Key? key}) : super(key: key);
 
@@ -21,7 +22,7 @@ indexSelected = index;
    UserHome(),
      Center(child:Text('Search')),
     UserProfile(),
-     Center(child:Text('Chat')),
+     ChatSelect(),
      CreatePost(),
    ];
   @override
