@@ -16,6 +16,9 @@ class UserProfile extends StatelessWidget {
         .get();
   }
 
+   void logout() {
+     FirebaseAuth.instance.signOut();
+   }
 
   @override
   Widget build(BuildContext context) {
