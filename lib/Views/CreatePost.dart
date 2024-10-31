@@ -146,7 +146,7 @@ class _CreatePostState extends State<CreatePost> {
         // Upload post data to Firestore
         final newPost =  FirebaseFirestore.instance.collection('posts').doc();
         newPost.set({
-          'author_id': user.email,
+          'author_id': user.uid,
           'caption': postText,
           'date': FieldValue.serverTimestamp(),
           'post_id': newPost.id,
