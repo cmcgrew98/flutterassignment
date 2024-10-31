@@ -21,6 +21,9 @@ class _HomeState extends State<UI> {
     UserHome(),
     Center(child:Text('Search')),
     UserProfile(),
+    Center(child:Text('Chat')),
+     CreatePost(),
+   ];
 
   @override
   Widget build(BuildContext context) {
