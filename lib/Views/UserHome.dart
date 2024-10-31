@@ -41,19 +41,8 @@ class _UserHomeState extends State<UserHome> {
 
     // Step 2: For each user, fetch their corresponding posts from the 'posts' collection
     for (var userDoc in userSnapshot.docs) {
-      String userId = userDoc["uid"] as String;
 
-      /* The block can probably be replaced with the line:
-         String userAvatar = userDoc["avatar_img_link"] as String;
-         if we purge all users without the "avatar_img_link" field*/
-      String userAvatar;
-      // Get the Avatar url of the user
-      try {
-        userAvatar = userDoc["avatar_img_link"] as String;
-      } on StateError {
-        // If the field does not exist a State error is thrown so this just sets the url to the base one
-        userAvatar = "gs://flutterproject-5cb92.appspot.com/user_avatars/blank_profile.jpg";
-      }
+      String userId = userDoc.id;
 
       String userName = userDoc["username"] as String;
 
@@ -61,24 +50,37 @@ class _UserHomeState extends State<UserHome> {
       QuerySnapshot postSnapshot = await fireStoreInstance
           .collection("posts")
           .where("author_id", isEqualTo: userId)
+          .orderBy("date", descending: true) // Ensure posts are ordered by date
           .get();
+
+      // Fetch avatars for the current user
+      QuerySnapshot avatarSnapshot = await fireStoreInstance
+          .collection("users").where("user_id", isEqualTo: userId).get();
+
+      List<String> avatarUrls = avatarSnapshot.docs.map((userDoc) {
+        return userDoc["avatar_img_link"] as String;
+      }).toList();
 
       List<String> avatarDownloads = [];
 
-      try {
-        // Extract the relative path from the full URL
-        String relativePath = extractRelativePath(userAvatar);
-        String downloadUrl = await FirebaseStorage.instance.ref(relativePath).getDownloadURL();
-        avatarDownloads.add(downloadUrl);
-      } on FirebaseException catch (e) {
-        displayMessageToUser((e.code), context);
+      for (var avatarDoc in avatarUrls) {
+        try {
+          String relativePath = extractRelativePath(avatarDoc);
+          print(relativePath);
+          String downloadUrl = await FirebaseStorage.instance.ref(relativePath).getDownloadURL();
+          avatarDownloads.add(downloadUrl);
+        } on FirebaseException catch (e) {
+          displayMessageToUser((e.code), context);
+        }
       }
 
       // Step 4: For each post, fetch the photos associated with the post
       List<Map<String, dynamic>> userPosts = []; // List to hold posts and their photos for each user
       for (var postDoc in postSnapshot.docs) {
         String postId = postDoc.id;
-        String postContent = postDoc["caption"] as String; // Assuming 'content' is the post data
+        String postContent = postDoc["caption"] as String;
+        Timestamp timestamp = postDoc["date"] as Timestamp; // Ensure 'date' is a Timestamp
+        DateTime date = timestamp.toDate(); // Convert Timestamp to DateTime
 
         // Step 5: Fetch all photos where 'postId' matches the current post
         QuerySnapshot photoSnapshot = await fireStoreInstance
@@ -88,13 +90,12 @@ class _UserHomeState extends State<UserHome> {
 
         // Step 6: Create a list to store multiple photo URLs for the current post
         List<String> photoUrls = photoSnapshot.docs.map((photoDoc) {
-          return photoDoc["photo_img_link"] as String; // Assuming 'source' holds the image URL
+          return photoDoc["photo_img_link"] as String;
         }).toList();
 
         List<String> downloadUrls = [];
-        for(var photoDoc in photoUrls){
+        for (var photoDoc in photoUrls) {
           try {
-            // Extract the relative path from the full URL
             String relativePath = extractRelativePath(photoDoc);
             String downloadUrl = await FirebaseStorage.instance.ref(relativePath).getDownloadURL();
             downloadUrls.add(downloadUrl);
@@ -105,29 +106,33 @@ class _UserHomeState extends State<UserHome> {
 
         // Add the post content and list of photos to the userPosts list
         userPosts.add({
+          "date": date,
           "avatars": avatarDownloads,
           "postContent": postContent,
-          "photoUrls": downloadUrls, // List of photo URLs for this post
+          "photoUrls": downloadUrls,
+          "postId": postId,
         });
       }
+
+      // Sort userPosts by date in descending order if not already sorted
+      userPosts.sort((a, b) => b["date"].compareTo(a["date"]));
 
       // Step 7: Add the user, their posts, and the corresponding photos to the temporary list
       if (userPosts.isNotEmpty) {
         tempList.add({
           "name": userName,
-          "posts": userPosts, // List of posts for this user
+          "posts": userPosts,
         });
       }
     }
 
     // Step 8: Update the UI once all data is fetched
     setState(() {
-      userDataList =
-          tempList; // Assign the temporary list to the state variable
-      loading =
-      false; // Data has been loaded, stop showing the loading indicator
+      userDataList = tempList;
+      loading = false;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +146,7 @@ class _UserHomeState extends State<UserHome> {
           // Get the current user and their posts
           String userName = userDataList[index]["name"]!;
           List<Map<String, dynamic>> userPosts = userDataList[index]["posts"];
-
+          userPosts.sort((a, b) => b["date"].compareTo(a["date"]));
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -151,15 +156,18 @@ class _UserHomeState extends State<UserHome> {
                 // Display all posts and their corresponding photos for the current user
                 Column(
                   children: userPosts.map((post) {
+                    DateTime date = post["date"];
                     String postContent = post["postContent"];
                     List<String> photoUrls = post["photoUrls"];
                     List<String> avatarUrls = post["avatars"];
-
+                    String postId = post["postId"];
                     return Posts(
                       avatarUrls: avatarUrls,
                       user: userName,
                       postContent: postContent,
                       photoUrls: photoUrls,
+                      date: date,
+                      postId: postId,
                     );
                   }).toList(),
                 ),
@@ -172,8 +180,3 @@ class _UserHomeState extends State<UserHome> {
   }
 }
 
-String extractRelativePath(String gsUrl) {
-  // Remove the "gs://<bucket-name>/" part to get the relative path
-  final RegExp gsUrlPattern = RegExp(r'gs://[^/]+/');
-  return gsUrl.replaceFirst(gsUrlPattern, '');
-}
