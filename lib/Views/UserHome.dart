@@ -41,7 +41,9 @@ class _UserHomeState extends State<UserHome> {
 
     // Step 2: For each user, fetch their corresponding posts from the 'posts' collection
     for (var userDoc in userSnapshot.docs) {
+
       String userId = userDoc.id;
+
       String userName = userDoc["username"] as String;
 
       // Step 3: Fetch all posts where 'userId' matches the current user
