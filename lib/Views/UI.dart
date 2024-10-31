@@ -26,7 +26,6 @@ class _HomeState extends State<UI> {
     Center(child: Text('Search')),
     profile(),
     ChatSelect(),
-    Center(child: Text('Chat')),
     CreatePost(),
   ];
 
