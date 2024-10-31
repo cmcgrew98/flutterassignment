@@ -1,13 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterassignment/Views/UI.dart';
-import 'package:path/path.dart';
 import 'package:flutterassignment/components/pick_image_button.dart';
 import 'package:flutterassignment/components/post_textfield.dart';
 import '../components/post_button.dart';
+import '../components/uploadPic.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreatePost extends StatefulWidget {
@@ -138,31 +137,26 @@ class _CreatePostState extends State<CreatePost> {
     if (_selectedImage != null && postText != null && postText!.isNotEmpty) {
       try {
         // Upload image to Firebase Storage
-        String fileName = basename(_selectedImage!.path);
-        Reference firebaseStorageRef = FirebaseStorage.instance.ref().child('post_photos/$fileName');
-        UploadTask uploadTask = firebaseStorageRef.putFile(_selectedImage!);
-        TaskSnapshot taskSnapshot = await uploadTask;
-        String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+        String imageUrl = await uploadPic('post_photos/', _selectedImage!);
 
         // Got from dshukertjr on stack overflow.
         // https://stackoverflow.com/questions/54000825/how-to-get-the-current-user-id-from-firebase-in-flutter
         final User user = auth.currentUser!;
-        final uid = user.uid;
 
         // Upload post data to Firestore
         final newPost =  FirebaseFirestore.instance.collection('posts').doc();
         newPost.set({
-          'author_id': uid,
+          'author_id': user.uid,
           'caption': postText,
           'date': FieldValue.serverTimestamp(),
-          'post_id': newPost,
+          'post_id': newPost.id,
         });
 
         //Upload photo data to Firestore
         await FirebaseFirestore.instance.collection('photos').add({
           'caption': postText,
-          'imageUrl': downloadUrl,
-          'post_id': newPost,
+          'photo_img_link': imageUrl,
+          'post_id': newPost.id,
         });
 
         print("Post uploaded successfully!");
