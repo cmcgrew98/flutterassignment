@@ -22,8 +22,8 @@ class _HomeState extends State<UI> {
     Center(child:Text('Search')),
     UserProfile(),
     Center(child:Text('Chat')),
-    CreatePost(),
-  ];
+     CreatePost(),
+   ];
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +39,13 @@ class _HomeState extends State<UI> {
             Icon(Icons.favorite),
           ],
         ),
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.notifications),
+        //     onPressed: () {
+        //     },
+        //   ),
+        // ],
       ),
       body: _children[indexSelected],
       bottomNavigationBar: BottomNavigationBar(
