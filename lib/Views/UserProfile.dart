@@ -61,9 +61,6 @@ class _ProfilePageState extends State<profile> {
     }
   }
 
-  void logout() {
-    FirebaseAuth.instance.signOut();
-  }
 
   @override
   void initState() {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterassignment/Views/profile.dart';
 import '../helper/helper_functions.dart';
 import 'CreatePost.dart';
 import 'UserHome.dart';
