@@ -38,4 +38,4 @@ Ben Crane, Evan Handy, Hunter Hamrick, Clara McGrew, Estlin Mendez, Kaden Kramer
 - Support for various photo formats (JPEG, PNG, HEIC, etc.).
 - Compatibility with different operating systems (iOS, Android).
 
-- 
+

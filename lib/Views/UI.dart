@@ -1,41 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutterassignment/Views/profile.dart';
+import '../helper/helper_functions.dart';
+import 'CreatePost.dart';
 import 'UserHome.dart';
+import 'UserProfile.dart';
+
 class UI extends StatefulWidget {
-  const UI({Key? key}) : super(key: key);
+  const UI({super.key});
 
   @override
-  _HomeState createState() => _HomeState();
-
+  State createState() => _HomeState();
 }
+
 class _HomeState extends State<UI> {
   int indexSelected = 0;
-   void navigateBar(int index){
-   setState((){
-indexSelected = index;
-   });
-   }
-   final List<Widget> _children = [
-   UserHome(),
-     Center(child:Text('Search')),
-     Center(child:Text('profile')),
-     Center(child:Text('Chat')),
-     Center(child:Text('Create Post')),
-   ];
+
+  void navigateBar(int index) {
+    setState(() {
+      indexSelected = index;
+    });
+  }
+
+  final List<Widget> _children = [
+    UserHome(),
+    Center(child: Text('Search')),
+    profile(),
+    Center(child: Text('Chat')),
+    CreatePost(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
-        title:Row(
+        title: const Row(
           children: [
             Text(
-                'Social Media',
-            style: TextStyle(color: Colors.white),
+              'Social Media',
+              style: TextStyle(color: Colors.white),
             ),
             Icon(Icons.favorite),
           ],
         ),
+        actions: [
+          IconButton(
+            onPressed: logout,
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: _children[indexSelected],
       bottomNavigationBar: BottomNavigationBar(
@@ -43,14 +56,13 @@ indexSelected = index;
         currentIndex: indexSelected,
         type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "home"),
-          BottomNavigationBarItem(icon: Icon(Icons.search),label: "search"),
-          BottomNavigationBarItem(icon: Icon(Icons.person),label: "profile"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat),label: "Chat"),
-          BottomNavigationBarItem(icon: Icon(Icons.add),label: "Create Post"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.chat), label: "Chat"),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: "Create Post"),
         ],
       ),
     );
   }
-
 }

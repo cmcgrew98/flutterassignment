@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../helper/helper_functions.dart';
 
 
 class profile extends StatefulWidget {
@@ -19,6 +22,10 @@ class _ProfilePageState extends State<profile> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
+
+   void logout() {
+     FirebaseAuth.instance.signOut();
+   }
 
 
   //Used Chat GPT to debug when combining code from orignal file and Renee's file
@@ -67,7 +74,6 @@ class _ProfilePageState extends State<profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         //Firebase Profile Edit
@@ -215,4 +221,5 @@ class _ProfilePageState extends State<profile> {
     );
   }
 }
+
 

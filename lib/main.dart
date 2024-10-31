@@ -1,6 +1,8 @@
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
-import 'Views/Login.dart';
+import 'package:flutterassignment/auth/login_or_register.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'auth/auth.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -8,6 +10,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+  );
+
   runApp(const MyApp());
 }
 
@@ -20,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Social Media Platform',
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: const AuthPage(),
     );
   }
 }
