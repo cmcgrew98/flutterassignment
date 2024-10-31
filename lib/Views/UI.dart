@@ -3,6 +3,7 @@ import '../helper/helper_functions.dart';
 import 'CreatePost.dart';
 import 'UserHome.dart';
 import 'UserProfile.dart';
+import 'ChatSelect.dart';
 
 class UI extends StatefulWidget {
   const UI({super.key});
@@ -24,6 +25,7 @@ class _HomeState extends State<UI> {
     UserHome(),
     Center(child: Text('Search')),
     profile(),
+    ChatSelect(),
     Center(child: Text('Chat')),
     CreatePost(),
   ];
