@@ -14,6 +14,7 @@ void logout() {
   FirebaseAuth.instance.signOut();
 }
 
+//Code created with the help of ChatGPT
 String extractRelativePath(String gsUrl) {
   // Remove the "gs://<bucket-name>/" part to get the relative path
   final RegExp gsUrlPattern = RegExp(r'gs://[^/]+/');

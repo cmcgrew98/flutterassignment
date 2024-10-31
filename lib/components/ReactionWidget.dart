@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ReactionWidget extends StatefulWidget {
+  /*
+  Code for ReactionWidget, generated mostly using ChatGPT.
+   */
+
   @override
   _ReactionWidgetState createState() => _ReactionWidgetState();
 }
