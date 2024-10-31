@@ -15,7 +15,6 @@ Also used https://stackoverflow.com/questions/50877398/flutter-load-image-from-f
 class UserHome extends StatefulWidget {
   UserHome({Key? key}) : super(key: key);
 
-  // final List people = ['John', 'Jane', 'Jack', 'Jill', 'James', 'Jenny', 'Jasper', 'Jade', 'Jared', 'Jocelyn'];
   @override
   _UserHomeState createState() => _UserHomeState();
 }
@@ -42,8 +41,20 @@ class _UserHomeState extends State<UserHome> {
 
     // Step 2: For each user, fetch their corresponding posts from the 'posts' collection
     for (var userDoc in userSnapshot.docs) {
-      String userId = userDoc.id;
-  // String userAvatar = userDoc["avatar_img_link"] as String;
+      String userId = userDoc["uid"] as String;
+
+      /* The block can probably be replaced with the line:
+         String userAvatar = userDoc["avatar_img_link"] as String;
+         if we purge all users without the "avatar_img_link" field*/
+      String userAvatar;
+      // Get the Avatar url of the user
+      try {
+        userAvatar = userDoc["avatar_img_link"] as String;
+      } on StateError {
+        // If the field does not exist a State error is thrown so this just sets the url to the base one
+        userAvatar = "gs://flutterproject-5cb92.appspot.com/user_avatars/blank_profile.jpg";
+      }
+
       String userName = userDoc["username"] as String;
 
       // Step 3: Fetch all posts where 'userId' matches the current user
@@ -52,25 +63,15 @@ class _UserHomeState extends State<UserHome> {
           .where("author_id", isEqualTo: userId)
           .get();
 
-      //Fetch the avatars where the userId matches the current user
-      QuerySnapshot avatarSnapshot = await fireStoreInstance
-          .collection("users").where("user_id", isEqualTo: userId).get();
-
-      List<String> avatarUrls = avatarSnapshot.docs.map((userDoc) {
-        return userDoc["avatar_img_link"] as String; // Assuming 'source' holds the image URL
-      }).toList();
-
       List<String> avatarDownloads = [];
 
-      for(var avatarDoc in avatarUrls){
-        try {
-          // Extract the relative path from the full URL
-          String relativePath = extractRelativePath(avatarDoc);
-          String downloadUrl = await FirebaseStorage.instance.ref(relativePath).getDownloadURL();
-          avatarDownloads.add(downloadUrl);
-        } on FirebaseException catch (e) {
-          displayMessageToUser((e.code), context);
-        }
+      try {
+        // Extract the relative path from the full URL
+        String relativePath = extractRelativePath(userAvatar);
+        String downloadUrl = await FirebaseStorage.instance.ref(relativePath).getDownloadURL();
+        avatarDownloads.add(downloadUrl);
+      } on FirebaseException catch (e) {
+        displayMessageToUser((e.code), context);
       }
 
       // Step 4: For each post, fetch the photos associated with the post
@@ -89,8 +90,6 @@ class _UserHomeState extends State<UserHome> {
         List<String> photoUrls = photoSnapshot.docs.map((photoDoc) {
           return photoDoc["photo_img_link"] as String; // Assuming 'source' holds the image URL
         }).toList();
-
-
 
         List<String> downloadUrls = [];
         for(var photoDoc in photoUrls){

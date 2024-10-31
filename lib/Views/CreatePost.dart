@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutterassignment/Views/UI.dart';
 import 'package:flutterassignment/components/pick_image_button.dart';
 import 'package:flutterassignment/components/post_textfield.dart';
 import '../components/post_button.dart';
+import '../components/uploadPic.dart';
 import 'package:image_picker/image_picker.dart';
-import 'UI.dart';
 
 class CreatePost extends StatefulWidget {
   CreatePost({super.key});
@@ -15,8 +18,10 @@ class CreatePost extends StatefulWidget {
 
 class _CreatePostState extends State<CreatePost> {
   final postController = TextEditingController();
+  final FirebaseAuth auth = FirebaseAuth.instance;
   File? _selectedImage;
   String? postText;
+  bool _isUploading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class _CreatePostState extends State<CreatePost> {
 
                 // Display selected image or prompt to select an image
                 if (_selectedImage != null)
-               // Wrapping the image in a flexible container to avoid overflow
+
                  Container(
                     child: Image.file(
                       _selectedImage!,
@@ -59,10 +64,21 @@ class _CreatePostState extends State<CreatePost> {
                 ),
                 const SizedBox(height: 10),
 
+                // Show progress indicator when uploading
+                if (_isUploading) const CircularProgressIndicator(),
+
                 // Post button
-                PostButton(onTap: () {
+                PostButton(onTap: () async {
                   setState(() {
                     postText = postController.text;
+                    _isUploading = true;
+                  });
+
+                  // Upload image and post text to Firebase
+                  await _uploadPost();
+
+                  setState(() {
+                    _isUploading = false;
                   });
 
                  Navigator.of(context).pushReplacement(
@@ -112,6 +128,44 @@ class _CreatePostState extends State<CreatePost> {
       setState(() {
         _selectedImage = File(returnedImage.path);
       });
+    }
+  }
+
+  // The framework for following method was generated using ChatGPT before being modified.
+  // Method to upload the image to Firebase Storage and the post text to Firestore
+  Future<void> _uploadPost() async {
+    if (_selectedImage != null && postText != null && postText!.isNotEmpty) {
+      try {
+        // Upload image to Firebase Storage
+        String imageUrl = await uploadPic('post_photos/', _selectedImage!);
+
+        // Got from dshukertjr on stack overflow.
+        // https://stackoverflow.com/questions/54000825/how-to-get-the-current-user-id-from-firebase-in-flutter
+        final User user = auth.currentUser!;
+
+        // Upload post data to Firestore
+        final newPost =  FirebaseFirestore.instance.collection('posts').doc();
+        newPost.set({
+          'author_id': user.uid,
+          'caption': postText,
+          'date': FieldValue.serverTimestamp(),
+          'post_id': newPost.id,
+        });
+
+        //Upload photo data to Firestore
+        await FirebaseFirestore.instance.collection('photos').add({
+          'caption': postText,
+          'photo_img_link': imageUrl,
+          'post_id': newPost.id,
+        });
+
+        print("Post uploaded successfully!");
+
+      } catch (e) {
+        print("Error uploading post: $e");
+      }
+    } else {
+      print("No image or text to upload.");
     }
   }
 }
