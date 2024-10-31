@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterassignment/Views/profile.dart';
+import '../helper/helper_functions.dart';
 import 'CreatePost.dart';
 import 'UserHome.dart';
 import 'UserProfile.dart';
@@ -12,16 +14,18 @@ class UI extends StatefulWidget {
 
 class _HomeState extends State<UI> {
   int indexSelected = 0;
-  void navigateBar(int index){
-    setState((){
+
+  void navigateBar(int index) {
+    setState(() {
       indexSelected = index;
     });
   }
+
   final List<Widget> _children = [
     UserHome(),
-    Center(child:Text('Search')),
-    UserProfile(),
-    Center(child:Text('Chat')),
+    Center(child: Text('Search')),
+    profile(),
+    Center(child: Text('Chat')),
     CreatePost(),
   ];
 
@@ -39,6 +43,12 @@ class _HomeState extends State<UI> {
             Icon(Icons.favorite),
           ],
         ),
+        actions: [
+          IconButton(
+            onPressed: logout,
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: _children[indexSelected],
       bottomNavigationBar: BottomNavigationBar(
@@ -46,11 +56,11 @@ class _HomeState extends State<UI> {
         currentIndex: indexSelected,
         type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.search),label: "Search"),
-          BottomNavigationBarItem(icon: Icon(Icons.person),label: "Profile"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat),label: "Chat"),
-          BottomNavigationBarItem(icon: Icon(Icons.add),label: "Create Post"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.chat), label: "Chat"),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: "Create Post"),
         ],
       ),
     );

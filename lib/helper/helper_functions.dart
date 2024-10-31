@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 void displayMessageToUser(String message, BuildContext context) {
@@ -7,4 +8,14 @@ void displayMessageToUser(String message, BuildContext context) {
       title: Text(message),
     ),
   );
+}
+
+void logout() {
+  FirebaseAuth.instance.signOut();
+}
+
+String extractRelativePath(String gsUrl) {
+  // Remove the "gs://<bucket-name>/" part to get the relative path
+  final RegExp gsUrlPattern = RegExp(r'gs://[^/]+/');
+  return gsUrl.replaceFirst(gsUrlPattern, '');
 }
